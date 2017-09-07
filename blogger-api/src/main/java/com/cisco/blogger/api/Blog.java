@@ -1,24 +1,42 @@
 package com.cisco.blogger.api;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Blogs")
 public class Blog {
-	
+	@Id
 	private String id;
 	private String title;
-	private String createTime;
-	private String lastUpdate;
+	private Date createTime;
+	private Date lastUpdate;
 	private String content;
 	private int likeCount;
 	private User blogOwner;
 	private List<Comment> comments;
-	private List<Image> imageList;
 
 	
+	public Blog() {
+		super();
+		this.comments = new ArrayList<>();
+	}
+
+	public Blog(String title, Date createTime, Date lastUpdate, String content, int likeCount, User blogOwner,
+			List<Comment> comments) {
+		super();
+		this.title = title;
+		this.createTime = createTime;
+		this.lastUpdate = lastUpdate;
+		this.content = content;
+		this.likeCount = likeCount;
+		this.blogOwner = blogOwner;
+		this.comments = comments;
+		}
+
 	public String getTitle() {
 		return title;
 	}
@@ -27,19 +45,19 @@ public class Blog {
 		this.title = title;
 	}
 
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public String getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 
-	public void setLastUpdate(String lastUpdate) {
+	public void setLastUpdate(Date   lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -76,14 +94,6 @@ public class Blog {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-
-	public List<Image> getImageList() {
-		return imageList;
-	}
-
-	public void setImageList(List<Image> imageList) {
-		this.imageList = imageList;
 	}
 
 	public String getId() {

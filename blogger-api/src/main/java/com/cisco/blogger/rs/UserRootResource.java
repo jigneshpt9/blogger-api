@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cisco.blogger.api.DuplicateUserException;
@@ -22,7 +23,11 @@ import com.cisco.blogger.service.UserServiceImpl;
 @Path("/user")
 public class UserRootResource {
 	
-	UserService userService = new UserServiceImpl();
+	UserService userService;
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON})

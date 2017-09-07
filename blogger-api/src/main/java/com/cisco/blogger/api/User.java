@@ -1,14 +1,26 @@
 package com.cisco.blogger.api;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Users")
 public class User {
-	
+	@Id
+	private String id;
 	private String emailId;
 	private String firstName;
 	private String lastName;
 	private String contactNumber;
 	private String role;
 	private String password;
+	
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getEmailId() {
 		return emailId;
 	}

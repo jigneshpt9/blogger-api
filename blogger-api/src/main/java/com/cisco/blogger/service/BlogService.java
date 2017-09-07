@@ -2,9 +2,10 @@ package com.cisco.blogger.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.cisco.blogger.api.Blog;
 import com.cisco.blogger.api.Comment;
-import com.cisco.blogger.api.Reply;
 
 public interface BlogService {
 	
@@ -14,16 +15,10 @@ public interface BlogService {
 	
 	public List<Blog> searchBlogs(String keyword);
 	
-	public Blog viewBlog(int blogId);
+	public Blog viewBlog(String blogId);
 	
 	public List<Blog> listAllBlogs();
 	
 	public void addComment(int blogId,Comment comment);
 	
-	public int upvoteComment(int commentId);
-	
-	public int undoLikeComment(int commentId);
-	
-	public void replyOnComment(int commentId, Reply reply);
-
 }

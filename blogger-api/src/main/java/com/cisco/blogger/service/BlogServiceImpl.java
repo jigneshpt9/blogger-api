@@ -2,63 +2,62 @@ package com.cisco.blogger.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.cisco.blogger.api.Blog;
 import com.cisco.blogger.api.Comment;
-import com.cisco.blogger.api.Reply;
-import com.cisco.blogger.data.BlogDAO;
-import com.cisco.blogger.data.BlogDAOImpl;
-
+import com.cisco.blogger.data.BlogRepository;
+@Service
 public class BlogServiceImpl implements BlogService {
+	
+	private BlogRepository blogRepository;
+	 @Autowired
+	  public void setBlogRepository(BlogRepository blogRepository) {
+	        this.blogRepository = blogRepository;
+	    }
+	
 
-	BlogDAO blogDAO = new BlogDAOImpl();
 
 	public String createBlog(Blog blog) {
 
-		String blogId = blogDAO.createBlog(blog);
-
-		return blogId;
+		return null;
 
 	}
 
 	public Blog updateBlog(Blog blog) {
-		Blog updatedBlog = blogDAO.updateBlog(blog);
-		return updatedBlog;
+		
+		return null;
 	}
 
 	public List<Blog> searchBlogs(String keyword) {
-		return blogDAO.searchBlogs(keyword);
+	//	return blogRepository.findByKeyword(keyword);
+		return null;
 	}
 
-	public Blog viewBlog(int blogId) {
-		return blogDAO.viewBlog(blogId);
+	public Blog viewBlog(String blogId) {
+		return blogRepository.findById(blogId);
 	}
 
 	public List<Blog> listAllBlogs() {
 
-		return blogDAO.listAllBlogs();
+		return blogRepository.findAll();
 	}
 
-	public void addComment(int blogId, Comment comment) {
+	public void addComment(String id, Comment comment) {
 
-		blogDAO.addComment(blogId, comment);
+		//blogRepository.addComment(id, comment);
 
-	}
-
-	public int upvoteComment(int commentId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int undoLikeComment(int commentId) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
-	public void replyOnComment(int commentId, Reply reply) {
-		blogDAO.replyOnComment(commentId, reply);
-		
+	public void addComment(int blogId, Comment comment) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	
+
+	
 
 }

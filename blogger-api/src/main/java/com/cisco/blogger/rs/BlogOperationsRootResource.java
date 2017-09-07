@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cisco.blogger.api.Blog;
@@ -18,18 +19,26 @@ import com.cisco.blogger.api.BlogCreateException;
 import com.cisco.blogger.api.BlogException;
 import com.cisco.blogger.api.BlogUpdateException;
 import com.cisco.blogger.api.Comment;
-import com.cisco.blogger.api.Reply;
 import com.cisco.blogger.api.User;
 import com.cisco.blogger.service.BlogService;
-import com.cisco.blogger.service.BlogServiceImpl;
 import com.cisco.blogger.service.UserService;
-import com.cisco.blogger.service.UserServiceImpl;
 @Component
 @Path("/blog")
 public class BlogOperationsRootResource {
+	
+	BlogService blogService;
+	UserService userService;
+	
+	@Autowired
+	public void setBlogService(BlogService blogService) {
+		this.blogService = blogService;
+	}
 
-	BlogService blogService = new BlogServiceImpl();
-	UserService userService = new UserServiceImpl();
+
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -75,12 +84,12 @@ public class BlogOperationsRootResource {
 	}
 
 	@GET
-	@Path("/view/{blogId}")
+	@Path("/view/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getBlogById(@PathParam("blogId") int blogId) {
+	public Response getBlogById(@PathParam("id") String id) {
 		try {
-			Blog blog = blogService.viewBlog(blogId);
+			Blog blog = blogService.viewBlog(id);
 
 			return Response.ok().entity(blog).build();
 
@@ -146,23 +155,23 @@ public class BlogOperationsRootResource {
 
 	}
 	
-	@POST
-	@Path("/reply/{commentId}")
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response replyOnComment(@PathParam("commentId") int commentId, Reply reply) {
-		try {
-
-			blogService.replyOnComment(commentId, reply);
-
-			return Response.status(200).build();
-
-		} catch (BlogCreateException bce) {
-			return Response.status(400).build();
-		} catch (BlogException be) {
-			return Response.status(500).build();
-		}
-
-	}
+//	@POST
+//	@Path("/reply/{commentId}")
+//	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+//	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+//	public Response replyOnComment(@PathParam("commentId") int commentId, Reply reply) {
+//		try {
+//
+//			blogService.replyOnComment(commentId, reply);
+//
+//			return Response.status(200).build();
+//
+//		} catch (BlogCreateException bce) {
+//			return Response.status(400).build();
+//		} catch (BlogException be) {
+//			return Response.status(500).build();
+//		}
+//
+//	}
 
 }

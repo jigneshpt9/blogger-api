@@ -1,33 +1,17 @@
 package com.cisco.blogger.api;
 
-import java.util.List;
-
 public class Comment {
 	
-	private int commentId;
-	private String createdTime;
 	private String text;
-	private int likeCount;
-	private int dislikeCount;
 	
-	List<Reply> replyList;
 
-	private Blog blog;
-
-	public String getCreatedTime() {
-		return createdTime;
+	protected Comment() {
+		
 	}
 
-	public void setCreatedTime(String createdTime) {
-		this.createdTime = createdTime;
-	}
-
-	public int getCommentId() {
-		return commentId;
-	}
-
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
+	public Comment(String text) {
+		super();
+		this.text = text;
 	}
 
 	public String getText() {
@@ -38,28 +22,5 @@ public class Comment {
 		this.text = text;
 	}
 
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-
-	public int getDislikeCount() {
-		return dislikeCount;
-	}
-
-	public void setDislikeCount(int dislikeCount) {
-		this.dislikeCount = dislikeCount;
-	}
-
-	public List<Reply> getReplyList() {
-		return replyList;
-	}
-
-	public void setReplyList(List<Reply> replyList) {
-		this.replyList = replyList;
-	}
 
 }
